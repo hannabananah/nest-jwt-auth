@@ -1,73 +1,34 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 프로젝트 개요
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+이 프로젝트는 NestJS를 사용하여 JWT 인증 서버를 구현한 예제입니다. 이 서버는 사용자 인증과 권한 부여를 관리하며, Prisma를 이용해 PostgreSQL 데이터베이스와 상호작용합니다.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 프로젝트 구조
 
-## Description
+- `main.ts`: 애플리케이션 부트스트랩 코드
+- `app.module.ts`: 메인 애플리케이션 모듈
+- `prisma`: 데이터베이스와 상호작용을 위한 Prisma 설정
+- `auth`: 인증 관련 모듈, 서비스, 컨트롤러 및 전략
+- `common`: 공용 데코레이터 및 가드
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## API 테스트
 
-## Installation
+Postman 또는 다른 API 클라이언트를 사용하여 다음 엔드포인트를 테스트할 수 있습니다.
 
-```bash
-$ npm install
-```
+- POST /auth/local/signup - 회원 가입
+- POST /auth/local/signin - 로그인
+- POST /auth/logout - 로그아웃
+- POST /auth/refresh - 토큰 갱신
 
-## Running the app
+## 주요 기능
 
-```bash
-# development
-$ npm run start
+- **회원가입 및 로그인**: 사용자는 이메일과 비밀번호로 회원가입 및 로그인을 할 수 있습니다.
+- **액세스 토큰 및 리프레시 토큰**: JWT를 사용하여 인증을 처리하며, 액세스 토큰과 리프레시 토큰을 발급합니다.
+- **로그아웃**: 사용자는 로그아웃하여 리프레시 토큰을 무효화할 수 있습니다.
+- **토큰 갱신**: 만료된 액세스 토큰을 리프레시 토큰을 사용하여 갱신할 수 있습니다.
 
-# watch mode
-$ npm run start:dev
+## 보안 기능
 
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- **JWT 전략**: 액세스 토큰과 리프레시 토큰을 사용하여 사용자 인증을 처리합니다.
+- **액Guard**: 보호된 라우트에 접근할 때 JWT 토큰을 검사합니다.
+- **데코레이터**: 현재 사용자 정보와 ID를 가져오는 데코레이터를 제공합니다.
+- **전역 파이프**: 요청 데이터를 유효성 검사를 위해 전역 파이프를 사용합니다.
